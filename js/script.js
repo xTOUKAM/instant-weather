@@ -18,12 +18,18 @@ async function getCommuneByCP(postalCode) {
 function displayCommunes(data) {
     communeSelect.innerHTML = "";
     if(data.length >= 1) {
+        communeSelect.style.display = 'block';
         data.forEach(commune => {
             let addingCommune = document.createElement('option');
                 addingCommune.value = commune.code;
                 addingCommune.textContent = commune.nom;
                 communeSelect.appendChild(addingCommune);
         });
+    }
+
+    if(data.length === 0) {
+        postalCode.value = "";
+        communeSelect.style.display = 'none';
     }
 }
 
@@ -34,9 +40,6 @@ postalCode.addEventListener("input", async () => {
         try {
             let data = await getCommuneByCP(postalCode);
             displayCommunes(data);
-            console.log(postalCodeValue);
-            console.log(data);
-            communeSelect.style.display = 'block';
         } catch(err) {
             console.log("Erreur survenue lors de l'affichage des noms de communes : " + err.message);
         }
