@@ -1,5 +1,6 @@
 
 const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
+const communeSelect = document.getElementById('communeSelect');
 let postalCode = document.getElementById('postalCode');
 
 async function getCommuneByCP(postalCode) {
@@ -15,7 +16,8 @@ async function getCommuneByCP(postalCode) {
 }
 
 function displayCommunes(data) {
-    if(data.length > 1) {
+    communeSelect.innerHTML = "";
+    if(data.length >= 1) {
         data.forEach(commune => {
             let addingCommune = document.createElement('option');
                 addingCommune.value = commune.code;
@@ -34,6 +36,7 @@ postalCode.addEventListener("input", async () => {
             displayCommunes(data);
             console.log(postalCodeValue);
             console.log(data);
+            communeSelect.style.display = 'block';
         } catch(err) {
             console.log("Erreur survenue lors de l'affichage des noms de communes : " + err.message);
         }
