@@ -1,95 +1,138 @@
 const apiUrlGeo = 'https://geo.api.gouv.fr/communes?codePostal=';
 const token = 'b05f0cb126dfe4edd5d71b72ee1d429986f8569870242d37e56f6f7d6a199e10';
-const apiUrlMeteo = 'https://api.meteo-concept.com/api/forecast/daily?token='+ token +'&insee=';
+const apiUrlMeteo = `https://api.meteo-concept.com/api/forecast/daily?token=${token}&insee=`;
+
 const communeSelect = document.getElementById('communeSelect');
 const getWeatherButton = document.getElementById('getWeatherButton');
-let postalCode = document.getElementById('postalCode');
+const postalCode = document.getElementById('postalCode');
+const daysSelect = document.getElementById('daysSelect');
+const forecastContainer = document.querySelector('.forecast-container');
 
+// Récupère la commune en fonction du code postal
 async function getCommuneByCP(postalCode) {
-    let getUrlForCP = apiUrlGeo+postalCode.value;
+    const getUrlForCP = `${apiUrlGeo}${postalCode.value}`;
     try {
         const response = await fetch(getUrlForCP);
-        console.log(getUrlForCP);
-        const data = await response.json();
-        return data;
-    } catch(err) {
-        console.log("Erreur lors de l'envoie de la requête à l'API : " + err);
+        return await response.json();
+    } catch (err) {
+        console.error(`Erreur lors de l'envoi de la requête à l'API : ${err}`);
     }
 }
 
+// Affiche la liste des communes
 function displayCommunes(data) {
     communeSelect.innerHTML = "";
-    if(data.length >= 1) {
+    const fragment = document.createDocumentFragment();
+
+    if (data.length) {
         communeSelect.style.display = 'block';
         getWeatherButton.style.display = 'block';
-        data.forEach(commune => {
-            let addingCommune = document.createElement('option');
-                addingCommune.value = commune.code;
-                addingCommune.textContent = commune.nom;
-                communeSelect.appendChild(addingCommune);
-        });
-    }
 
-    if(data.length === 0) {
+        data.forEach(commune => {
+            const option = document.createElement('option');
+            option.value = commune.code;
+            option.textContent = commune.nom;
+            fragment.appendChild(option);
+        });
+
+        communeSelect.appendChild(fragment);
+    } else {
         postalCode.value = "";
         communeSelect.style.display = 'none';
         getWeatherButton.style.display = 'none';
     }
 }
 
-postalCode.addEventListener("input", async () => {
-    let postalCodeValue = postalCode.value;
-
-    if (/^\d{5}$/.test(postalCodeValue)) {
-        try {
-            let data = await getCommuneByCP(postalCode);
-            displayCommunes(data);
-        } catch(err) {
-            console.log("Erreur survenue lors de l'affichage des noms de communes : " + err.message);
-        }
-    }
-})
-
-getWeatherButton.addEventListener('click', async () => {
-    let communeValue = communeSelect.value;
-    let getUrlForMeteo = apiUrlMeteo+communeValue;
+// Récupère et affiche la météo
+async function getWeather(communeValue) {
+    const getUrlForMeteo = `${apiUrlMeteo}${communeValue}`;
     try {
         const response = await fetch(getUrlForMeteo);
-        const data = await response.json();
-        console.log(data);
-
-        // const weatherInfoDiv = document.getElementById('weatherInfo');
-        // //weatherInfoDiv.innerHTML = `
-        // //    <h3>Météo pour ${communeSelect.options[communeSelect.selectedIndex].text}</h3>
-        //  //   <div class="num">${data.forecast[0].tmin}°C - ${data.forecast[0].tmax}°C</div>
-        //    // <p>Prévisions : ${data.forecast[0].weather}</p>
-        //     //<p>Heure d'ensoleillements : ${data.forecast[0].sun_hours}heures</p>
-        //     //<p>Prévisions : ${data.forecast[0].weather}</p>
-        // //`;
-
-        const locationId = document.getElementById('locationId');
-        locationId.innerHTML = `
-            ${communeSelect.options[communeSelect.selectedIndex].text}
-        `;
-
-        const tempID= document.getElementById('tempID');
-        tempID.innerHTML = `
-           <div class="num">Max:${data.forecast[0].tmin}<sup>o</sup>C 
-           <div class="num">Min:${data.forecast[0].tmax}<sup>o</sup>C
-        `;
-
-        const precipitationID = document.getElementById('precipitationID');
-        precipitationID.innerHTML = `
-            <img src="images/icons8-parapluie-48.png" alt="" width="30">
-            ${data.forecast[0].probarain}%
-        `;
-
-        const soleilID = document.getElementById('soleilID');
-        soleilID.innerHTML = `
-            <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
-            ${data.forecast[0].sun_hours}h
-        `;
-    } catch(err) {
-        console.log("Erreur lors de l'envoie de la requête à l'API : " + err);
+        return await response.json();
+    } catch (err) {
+        console.error(`Erreur lors de l'envoi de la requête à l'API : ${err}`);
     }
-})
+}
+
+// Fonction pour récupérer le jour de la semaine en fonction d'une date
+function getDayOfWeek(dateString) {
+    const daysOfWeek = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const date = new Date(dateString);
+    return daysOfWeek[date.getDay()];
+}
+
+// Met à jour l'affichage de la météo
+function updateWeatherDisplay(data) {
+    const { forecast } = data;
+    const numDays = parseInt(daysSelect.value);
+    const locationName = communeSelect.options[communeSelect.selectedIndex].text;
+
+    const fragment = document.createDocumentFragment();
+
+    // Affichage du jour actuel (aujourd'hui)
+    fragment.appendChild(createWeatherCard(forecast[0], 'Aujourd\'hui'));
+
+    // Affichage des jours suivants
+    for (let i = 1; i < numDays; i++) {
+        // Récupérer la date du jour en question
+        const dayOfWeek = getDayOfWeek(forecast[i].datetime);
+        fragment.appendChild(createWeatherCard(forecast[i], dayOfWeek));
+    }
+
+    // Remplacer le contenu
+    forecastContainer.innerHTML = '';
+    forecastContainer.appendChild(fragment);
+}
+
+
+// Crée une carte météo pour un jour donné
+function createWeatherCard(day, label) {
+    const card = document.createElement('div');
+    card.classList.add('forecast');
+
+    card.innerHTML = `
+        <div class="forecast-header">
+            <div class="day">${label}</div>
+        </div>
+        <div class="forecast-content">
+            <div class="degree">
+                <div class="num">Max: ${day.tmin}°C</div>
+                <div class="num">Min: ${day.tmax}°C</div>
+            </div>
+            <span>
+                <img src="images/icons8-parapluie-48.png" alt="" width="30">
+                ${day.probarain}% Précipitation
+            </span>
+            <span>
+                <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
+                ${day.sun_hours}h de soleil
+            </span>
+        </div>
+    `;
+
+    return card;
+}
+
+// Gestion de l'entrée du code postal
+postalCode.addEventListener("input", async () => {
+    const postalCodeValue = postalCode.value;
+    if (/^\d{5}$/.test(postalCodeValue)) {
+        try {
+            const data = await getCommuneByCP(postalCode);
+            displayCommunes(data);
+        } catch (err) {
+            console.error(`Erreur survenue lors de l'affichage des noms de communes : ${err.message}`);
+        }
+    }
+});
+
+// Gestion de l'affichage de la météo
+getWeatherButton.addEventListener('click', async () => {
+    const communeValue = communeSelect.value;
+    try {
+        const data = await getWeather(communeValue);
+        updateWeatherDisplay(data);
+    } catch (err) {
+        console.error(`Erreur lors de l'envoi de la requête à l'API : ${err}`);
+    }
+});
