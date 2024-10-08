@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-		
-		<title>Instant Weather</title>
-		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
-		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="css/style.css">
-	</head>
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
-	<body>
-		
-		<div class="site-content">
-			<div class="site-header">
-				<div class="container">
-					<a href="index.html" class="branding">
-						<img src="images/logo.png" alt="" class="logo">
-						<div class="logo-type">
-							<h1 class="site-title">Instant Weather</h1>
-						</div>
-					</a>
-
-					<div class="mobile-navigation"></div>
-				</div>
-			</div> 
+    <title>Instant Weather</title>
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
             <!-- .site-header -->
 			<div class="hero" data-bg-image="images/banner.png">
@@ -36,6 +20,12 @@
 						<select id="communeSelect" style="display: none;">
 							<option value="">Sélectionnez une commune</option>
 						</select>
+            <!-- Ajouter la checkbox ici -->
+                    <div>
+                        <label for="checkLatitude">
+                            <input type="checkbox" id="checkLatitude"> Latitude
+                        </label>
+                    </div>
 						<button id="getWeatherButton" style="display: none;">Obtenir la météo</button>
                         <select id="daysSelect">
                             <option value="1">1 jour</option>
