@@ -1,7 +1,7 @@
 
 const apiUrlGeo = 'https://geo.api.gouv.fr/communes?codePostal=';
 const token = 'b05f0cb126dfe4edd5d71b72ee1d429986f8569870242d37e56f6f7d6a199e10';
-const apiUrlMeteo = 'https://api.meteo-concept.com/api/forecast/daily?token='+ token +'&insee=35238';
+const apiUrlMeteo = 'https://api.meteo-concept.com/api/forecast/daily?token='+ token +'&insee=';
 const communeSelect = document.getElementById('communeSelect');
 let postalCode = document.getElementById('postalCode');
 
@@ -48,6 +48,26 @@ postalCode.addEventListener("input", async () => {
     }
 })
 
+const getWeatherButton = document.getElementById('getWeatherButton');
+
+getWeatherButton.addEventListener('click', async () => {
+    let communeValue = communeSelect.value;
+    let getUrlForMeteo = apiUrlMeteo+communeValue;
+    try {
+        const response = await fetch(getUrlForMeteo);
+        const data = await response.json();
+        console.log(data);
+
+        const weatherInfoDiv = document.getElementById('weatherInfo');
+        weatherInfoDiv.innerHTML = `
+            <h3>Météo pour ${communeSelect.options[communeSelect.selectedIndex].text}</h3>
+            <p>Température : ${data.forecast[0].tmin}°C - ${data.forecast[0].tmax}°C</p>
+            <p>Prévisions : ${data.forecast[0].weather}</p>
+        `;
+    } catch(err) {
+        console.log("Erreur lors de l'envoie de la requête à l'API : " + err);
+    }
+})
 
 
 
