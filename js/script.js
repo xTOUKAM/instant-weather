@@ -1,10 +1,12 @@
 
-const apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
+const apiUrlGeo = 'https://geo.api.gouv.fr/communes?codePostal=';
+const token = 'b05f0cb126dfe4edd5d71b72ee1d429986f8569870242d37e56f6f7d6a199e10';
+const apiUrlMeteo = 'https://api.meteo-concept.com/api/forecast/daily?token='+ token +'&insee=35238';
 const communeSelect = document.getElementById('communeSelect');
 let postalCode = document.getElementById('postalCode');
 
 async function getCommuneByCP(postalCode) {
-    let getUrlForCP = apiUrl+postalCode.value;
+    let getUrlForCP = apiUrlGeo+postalCode.value;
     try {
         const response = await fetch(getUrlForCP);
         console.log(getUrlForCP);
@@ -45,5 +47,7 @@ postalCode.addEventListener("input", async () => {
         }
     }
 })
+
+
 
 
