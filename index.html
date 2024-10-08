@@ -12,58 +12,72 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-            <!-- .site-header -->
-			<div class="hero" data-bg-image="images/banner.png">
-				<div class="container" id="weatherForm">
-					<form action="#" class="find-location">
-						<input type="text" id="postalCode" placeholder="Merci d'entrer le code postal" required>
-						<select id="communeSelect" style="display: none;">
-							<option value="">Sélectionnez une commune</option>
-						</select>
-            <!-- Ajouter la checkbox ici -->
+<body>
+    <div class="site-content">
+        <div class="site-header">
+            <div class="container">
+                <a href="index.html" class="branding">
+                    <img src="images/logo.png" alt="" class="logo">
+                    <div class="logo-type">
+                        <h1 class="site-title">Instant Weather</h1>
+                    </div>
+                </a>
+
+                <div class="mobile-navigation"></div>
+            </div>
+        </div>
+        <!-- .site-header -->
+        <div class="hero" data-bg-image="images/banner.png">
+            <div class="container" id="weatherForm">
+                <form action="#" class="find-location">
+                    <input type="text" id="postalCode" placeholder="Merci d'entrer le code postal" required>
+                    <select id="communeSelect" style="display: none;">
+                        <option value="">Sélectionnez une commune</option>
+                    </select>
+                    <!-- Ajouter la checkbox ici -->
                     <div>
                         <label for="checkLatitude">
                             <input type="checkbox" id="checkLatitude"> Latitude
                         </label>
                     </div>
-						<button id="getWeatherButton" style="display: none;">Obtenir la météo</button>
-                        <select id="daysSelect">
-                            <option value="1">1 jour</option>
-                            <option value="2">2 jours</option>
-                            <option value="3">3 jours</option>
-                            <option value="4">4 jours</option>
-                            <option value="5">5 jours</option>
-                            <option value="6">6 jours</option>
-                            <option value="7">7 jours</option>
-                          </select>
-					</form>				
-					<div class="weather-info" id="weatherInfo">
-					</div>
-				</div>
-			</div>
-            <div id="numbersDays">
-                <div class="forecast-table">
-                    <div class="container">
-                        <div class="forecast-container">
-                            <div class="today forecast">
-                                <div class="forecast-header">
-                                </div> <!-- .forecast-header -->
-                                <div class="forecast-content">
-                                    <div class="location" id="locationId"></div>
-                                    <div class="degree" id="tempID">
-                                        <div class="num"></div>
-                                    </div>
-                                    <span id="precipitationID"></span>
-                                    <span id="soleilID"></span>
-                                    
+                    <button id="getWeatherButton" style="display: none;">Obtenir la météo</button>
+                    <select id="daysSelect">
+                        <option value="1">1 jour</option>
+                        <option value="2">2 jours</option>
+                        <option value="3">3 jours</option>
+                        <option value="4">4 jours</option>
+                        <option value="5">5 jours</option>
+                        <option value="6">6 jours</option>
+                        <option value="7">7 jours</option>
+                    </select>
+                </form>
+                <div class="weather-info" id="weatherInfo">
+                </div>
+            </div>
+        </div>
+        <div id="numbersDays">
+            <div class="forecast-table">
+                <div class="container">
+                    <div class="forecast-container">
+                        <div class="today forecast">
+                            <div class="forecast-header">
+                            </div> <!-- .forecast-header -->
+                            <div class="forecast-content">
+                                <div class="location" id="locationId"></div>
+                                <div class="degree" id="tempID">
+                                    <div class="num"></div>
                                 </div>
-                            </div>   
+                                <span id="precipitationID"></span>
+                                <span id="soleilID"></span>
+
+                            </div>
                         </div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="js/script.js"></script>
-	</body>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
 
 </html>
