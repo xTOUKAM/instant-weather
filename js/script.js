@@ -8,6 +8,13 @@ const postalCode = document.getElementById('postalCode');
 const daysSelect = document.getElementById('daysSelect');
 const forecastContainer = document.querySelector('.forecast-container');
 
+// Récupération des checkboxes
+const checkLatitude = document.getElementById('checkLatitude');
+const checkLongitude = document.getElementById('checkLongitude');
+const checkAltitude = document.getElementById('checkAltitude');
+const checkWind = document.getElementById('checkWind');
+const checkDirection = document.getElementById('checkDiection');
+
 // Récupère la commune en fonction du code postal
 async function getCommuneByCP(postalCode) {
     const getUrlForCP = `${apiUrlGeo}${postalCode.value}`;
@@ -90,14 +97,15 @@ function createWeatherCard(day, label) {
     const card = document.createElement('div');
     card.classList.add('forecast');
 
-    card.innerHTML = `
+    // Contenu de base
+    let cardContent = `
         <div class="forecast-header">
             <div class="day">${label}</div>
         </div>
         <div class="forecast-content">
             <div class="degree">
-                <div class="num">Max: ${day.tmin}°C</div>
-                <div class="num">Min: ${day.tmax}°C</div>
+                <div class="num">Max: ${day.tmax}°C</div>
+                <div class="num">Min: ${day.tmin}°C</div>
             </div>
             <span>
                 <img src="images/icons8-parapluie-48.png" alt="" width="30">
@@ -107,8 +115,35 @@ function createWeatherCard(day, label) {
                 <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
                 ${day.sun_hours}h
             </span>
-        </div>
     `;
+
+    // Ajoute latitude si cochée
+    if (checkLatitude.checked) {
+        cardContent += `<span>Latitude: ${day.latitude}°</span>`;
+    }
+
+    // Ajoute longitude si cochée
+    if (checkLongitude.checked) {
+        cardContent += `<span>Longitude: ${day.longitude}°</span>`;
+    }
+
+    // Ajoute cumul de pluie si cochée
+    if (checkAltitude.checked) {
+        cardContent += `<span>Cumul de pluie: ${day.rr10}mm</span>`;
+    }
+
+    // Ajoute vent si coché
+    if (checkWind.checked) {
+        cardContent += `<span>Vent: ${day.wind10m} km/h</span>`;
+    }
+
+    // Ajoute direction du vent si cochée
+    if (checkDirection.checked) {
+        cardContent += `<span>Direction du vent: ${day.dirwind10m}°</span>`;
+    }
+
+    cardContent += `</div>`;
+    card.innerHTML = cardContent;
 
     return card;
 }
