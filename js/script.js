@@ -101,11 +101,11 @@ function createWeatherCard(day, label) {
             </div>
             <span>
                 <img src="images/icons8-parapluie-48.png" alt="" width="30">
-                ${day.probarain}% Précipitation
+                ${day.probarain}%
             </span>
             <span>
                 <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
-                ${day.sun_hours}h de soleil
+                ${day.sun_hours}h
             </span>
         </div>
     `;

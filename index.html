@@ -31,7 +31,7 @@
             <div class="container" id="weatherForm">
                 <form action="#" class="find-location">
                     <input type="text" id="postalCode" placeholder="Merci d'entrer le code postal" required>
-                    <select id="communeSelect" style="display: none;">
+                    <select id="communeSelect">
                         <option value="">Sélectionnez une commune</option>
                     </select>
                     <!-- Ajouter la checkbox ici -->
@@ -39,8 +39,20 @@
                         <label for="checkLatitude">
                             <input type="checkbox" id="checkLatitude"> Latitude
                         </label>
+                        <label for="checkLongitude">
+                            <input type="checkbox" id="checkLongitude"> Longitude
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkAltitude"> Cumul de pluie
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkWind"> Vent
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkDiection"> Direction du vent
+                        </label>
                     </div>
-                    <button id="getWeatherButton" style="display: none;">Obtenir la météo</button>
+                    <button id="getWeatherButton">Obtenir la météo</button>
                     <select id="daysSelect">
                         <option value="1">1 jour</option>
                         <option value="2">2 jours</option>
