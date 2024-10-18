@@ -148,15 +148,16 @@ form input[type="reset"] {
 }
 
 .forecast-container {
+  padding-top: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  
   flex-wrap: wrap;
 }
 
 .forecast-container .forecast {
   width: auto;
+  padding: 10px;
   margin-right: 8px; /* Espace entre les cartes */
   min-width: 300px; /* Largeur minimale pour les petites cartes */
   box-sizing: border-box; /* Inclut le padding et les marges dans les dimensions totales */
