@@ -97,47 +97,45 @@ function createWeatherCard(day, label) {
     const card = document.createElement('div');
     card.classList.add('forecast');
 
+    // Obtenir l'icône en fonction du temps
+    const weatherIcon = getWeatherIcon(day);
+
     // Contenu de base
     let cardContent = `
         <div class="forecast-header">
             <div class="day">${label}</div>
         </div>
         <div class="forecast-content">
+            <div class="weather-icon">
+                ${weatherIcon} <!-- Ajout de l'icône météo -->
+            </div>
             <div class="degree">
                 <div class="num">Max: ${day.tmax}°C</div>
                 <div class="num">Min: ${day.tmin}°C</div>
             </div>
             <span>
                 <img src="images/icons8-parapluie-48.png" alt="" width="30">
-                ${day.probarain}%
+                ${day.probarain}% probabilité de pluie
             </span>
             <span>
                 <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
-                ${day.sun_hours}h
+                ${day.sun_hours}h d'ensoleillement
             </span>
     `;
 
-    // Ajoute latitude si cochée
+    // Ajout des données supplémentaires si les cases sont cochées (comme avant)
     if (checkLatitude.checked) {
         cardContent += `<span>Latitude: ${day.latitude}°</span>`;
     }
-
-    // Ajoute longitude si cochée
     if (checkLongitude.checked) {
         cardContent += `<span>Longitude: ${day.longitude}°</span>`;
     }
-
-    // Ajoute cumul de pluie si cochée
     if (checkAltitude.checked) {
         cardContent += `<span>Cumul de pluie: ${day.rr10}mm</span>`;
     }
-
-    // Ajoute vent si coché
     if (checkWind.checked) {
         cardContent += `<span>Vent: ${day.wind10m} km/h</span>`;
     }
-
-    // Ajoute direction du vent si cochée
     if (checkDirection.checked) {
         cardContent += `<span>Direction du vent: ${day.dirwind10m}°</span>`;
     }
@@ -146,6 +144,24 @@ function createWeatherCard(day, label) {
     card.innerHTML = cardContent;
 
     return card;
+}
+
+// Fonction pour afficher les émoticones en fonction du temps du jour
+function getWeatherIcon(weather) {
+    switch (true) {
+        case (weather.probarain > 60):
+            return '<img src="images/icons/icon-9.svg" alt="Image de pluie">'; // Pluie
+        case (weather.tmax >= 25):
+            return '<img src="images/icons/icon-2.svg" alt="Image de beau temps">'; // Beau temps, chaud
+        case (weather.probarain > 30 && weather.probarain <= 60):
+            return '<img src="images/icons/icon-4.svg" alt="Images averses">'; // Averses
+        case (weather.tmin < 0):
+            return '<img src="images/icons/icon-14.svg" alt="Image nuage plus flocon">'; // Neige ou froid
+        case (weather.wind10m > 50):
+            return '<img src="images/icons/icon-8.svg" alt="Image de vent fort">'; // Vent fort
+        default:
+            return '<img src="images/icons/icon-3.svg" alt="Image de nuage avec météo variable">'; // Nuageux, météo variable
+    }
 }
 
 // Gestion de l'entrée du code postal
