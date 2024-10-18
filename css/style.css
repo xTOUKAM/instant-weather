@@ -24,6 +24,8 @@ body {
   font-weight: 300;
   line-height: 1.5;
   background: #1e202b;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 h1,
@@ -149,11 +151,13 @@ form input[type="reset"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  
   flex-wrap: wrap;
 }
 
 .forecast-container .forecast {
-  margin: 10px; /* Espace entre les cartes */
+  width: auto;
+  margin-right: 8px; /* Espace entre les cartes */
   min-width: 300px; /* Largeur minimale pour les petites cartes */
   box-sizing: border-box; /* Inclut le padding et les marges dans les dimensions totales */
 }
