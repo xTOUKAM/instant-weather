@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
     <title>Instant Weather</title>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
     <link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -31,9 +31,6 @@
             <div class="container" id="weatherForm">
                 <form action="#" class="find-location">
                     <input type="text" id="postalCode" placeholder="Merci d'entrer le code postal" required>
-                    <select id="communeSelect">
-                        <option value="">Sélectionnez une commune</option>
-                    </select>
                     <!-- Ajouter la checkbox ici -->
                     <div>
                         <label for="checkLatitude">
@@ -52,6 +49,9 @@
                             <input type="checkbox" id="checkDiection"> Direction du vent
                         </label>
                     </div>
+                    <select id="communeSelect">
+                        <option value="">Sélectionnez une commune</option>
+                    </select>
                     <button id="getWeatherButton">Obtenir la météo</button>
                     <select id="daysSelect">
                         <option value="1">1 jour</option>
