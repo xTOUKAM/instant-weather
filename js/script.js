@@ -93,7 +93,13 @@ function updateWeatherDisplay(data) {
 
 
 // Crée une carte météo pour un jour donné
+// Crée une carte météo pour un jour donné
 function createWeatherCard(day, label) {
+    // Créer une div principale pour chaque jour
+    const mainCard = document.createElement('div');
+    mainCard.classList.add('weather-day-card'); // Ajout d'une classe spécifique pour chaque jour
+    
+    // Créer la structure interne
     const card = document.createElement('div');
     card.classList.add('forecast');
 
@@ -115,11 +121,11 @@ function createWeatherCard(day, label) {
             </div>
             <span>
                 <img src="images/icons8-parapluie-48.png" alt="" width="30">
-                ${day.probarain}% probabilité de pluie
+                ${day.probarain}%
             </span>
             <span>
                 <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
-                ${day.sun_hours}h d'ensoleillement
+                ${day.sun_hours}h
             </span>
             </br>
     `;
@@ -144,7 +150,10 @@ function createWeatherCard(day, label) {
     cardContent += `</div>`;
     card.innerHTML = cardContent;
 
-    return card;
+    // Ajouter la carte météo à la div principale
+    mainCard.appendChild(card);
+
+    return mainCard;
 }
 
 // Fonction pour afficher les émoticones en fonction du temps du jour
