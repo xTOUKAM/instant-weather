@@ -1131,7 +1131,7 @@
      .site-header .branding .logo {
        margin-right: 10px; }
      .site-header .branding .site-title {
-       margin-bottom: 5px;
+       margin-bottom: 70px;
        font-size: 16px;
        font-size: 1.1428571429em;
        color: white; }
@@ -1253,7 +1253,7 @@
    width: 100%;
    overflow: hidden;
    border-radius: 10px;
-   margin-top: 0px;
+   margin-top: -150px;
    margin-bottom: 20px;
 }
 
