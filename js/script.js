@@ -121,23 +121,24 @@ function createWeatherCard(day, label) {
                 <img src="images/icons/icons8-soleil-48.png" alt="" width="30">
                 ${day.sun_hours}h d'ensoleillement
             </span>
+            </br>
     `;
 
     // Ajout des données supplémentaires si les cases sont cochées (comme avant)
     if (checkLatitude.checked) {
-        cardContent += `<span>Latitude: ${day.latitude}°</span>`;
+        cardContent += `<span>Latitude: ${day.latitude}°</span></br>`;
     }
     if (checkLongitude.checked) {
-        cardContent += `<span>Longitude: ${day.longitude}°</span>`;
+        cardContent += `<span>Longitude: ${day.longitude}°</span></br>`;
     }
     if (checkAltitude.checked) {
-        cardContent += `<span>Cumul de pluie: ${day.rr10}mm</span>`;
+        cardContent += `<span>Cumul de pluie: ${day.rr10}mm</span></br>`;
     }
     if (checkWind.checked) {
-        cardContent += `<span>Vent: ${day.wind10m} km/h</span>`;
+        cardContent += `<span>Vent: ${day.wind10m} km/h</span></br>`;
     }
     if (checkDirection.checked) {
-        cardContent += `<span>Direction du vent: ${day.dirwind10m}°</span>`;
+        cardContent += `<span>Direction du vent: ${day.dirwind10m}°</span></br>`;
     }
 
     cardContent += `</div>`;
