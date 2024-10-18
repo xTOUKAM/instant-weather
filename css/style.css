@@ -1237,6 +1237,7 @@
      bottom: 5px;
      padding: 0 40px; }
  
+
  .forecast-container {
    width: 100%;
    background: #323544;
@@ -1245,9 +1246,12 @@
    width: 100%;
    overflow: hidden;
    border-radius: 10px;
-   margin-top: -150px;
-   margin-bottom: 50px; }
-   .forecast-container .forecast {
+   margin-top: 0px;
+   margin-bottom: 20px;
+}
+
+
+.forecast-container .forecast {
      display: table-cell;
      vertical-align: top; }
      .forecast-container .forecast:nth-child(even) {
