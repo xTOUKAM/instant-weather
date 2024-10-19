@@ -482,7 +482,6 @@ input[type="checkbox"]:checked {
 }
 
 input[type="checkbox"]:checked::after {
-  content: '✔';
   display: block;
   font-size: 12px;
   color: white;
