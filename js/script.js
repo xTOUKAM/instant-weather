@@ -222,6 +222,7 @@ communeSelect.addEventListener('change', function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const spinner = document.getElementById("loadingSpinner");
+    const siteContent = document.querySelector('.site-content');
     
     // Afficher le spinner
     spinner.classList.remove("hidden");
@@ -234,6 +235,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Attendre que la transition de fondu soit terminée avant de supprimer l'élément du DOM
       spinner.addEventListener("transitionend", function () {
         spinner.remove(); // Retirer complètement le spinner du DOM
+        siteContent.classList.add("loaded"); // Afficher le contenu du site
       });
     };
 });
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
