@@ -25,3 +25,8 @@ Pour exécuter ce projet en local :
    ```bash
    git clone https://github.com/votre-nom-utilisateur/instant-weather.git
 
+## Accéder au site
+
+Le site est hébergé sur GitHub Pages et est accessible à l'adresse suivante :
+
+[https://xtoukam.github.io/instant-weather/](https://xtoukam.github.io/instant-weather/)
