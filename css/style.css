@@ -190,6 +190,18 @@ form input[type="reset"] {
 
 #communeSelect {
   display: none;
+  opacity: 0;
+  animation: fadeInSelect 0.5s ease forwards;
+}
+
+.weather-day-card {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+  animation-delay: 0s;
+}
+
+.hidden {
+  display: none;
 }
 
 /* Styles par défaut pour les grands écrans (desktop) */
@@ -224,6 +236,9 @@ form input[type="reset"] {
   font-size: 16px;
   padding: 10px;
   margin: 5px;
+  opacity: 0;
+  animation: fadeInButton 0.5s ease forwards;
+  animation-delay: 0.2s;
 }
 
 /* Mise en page responsive pour mobile */
@@ -358,5 +373,168 @@ span img {
 
   .degree {
       font-size: 0.9em; /* Réduit la taille de police pour les températures */
+  }
+}
+
+
+/* Animation pour l'apparition des cards météo */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}	
+
+/* Animation pour le bouton */
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation pour la liste déroulante */
+@keyframes fadeInSelect {
+  from {
+    opacity: 0;
+    transform: translate(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+select {
+  -webkit-appearance: none; /* Supprimer le style par défaut */
+  -moz-appearance: none;    /* Supprimer le style par défaut */
+  appearance: none;         /* Supprimer le style par défaut */
+  background-color: white;
+  padding: 10px;
+  padding-right: 30px; /* Ajout d'espace pour la flèche */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-image: url('images/down-arrow.svg'); /* Image d'une flèche vers le bas */
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 15px; /* Taille de la flèche */
+}
+
+select:focus {
+  outline: none;
+  border-color: #007BFF; /* Changement de couleur à la sélection */
+}
+
+/* Animation fade-in */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+
+#checkboxContainer {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#checkboxContainer.visible {
+  display: flex;
+  opacity: 1;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Style des petites checkbox */
+input[type="checkbox"] {
+  appearance: none; /* Supprimer le style natif */
+  width: 16px;
+  height: 16px;
+  border: 2px solid #009ad8;
+  border-radius: 4px; /* Légèrement arrondi */
+  background-color: #1e202b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px; /* Espacement entre la checkbox et le label */
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #009ad8;
+  border-color: #007BFF;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  display: block;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  line-height: 16px;
+}
+
+/* Style des labels plus compacts */
+label {
+  font-size: 14px;
+  color: #bfc1c8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0; /* Enlever l'espace supplémentaire */
+}
+
+/* Style pour le conteneur de chargement */
+.loading-spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Toujours au-dessus */
+  transition: opacity 0.5s ease-out; /* Transition pour l'effet de fondu */
+}
+
+/* Style du spinner lui-même */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #f3f3f3; /* Bord clair */
+  border-top: 6px solid #009ad8; /* Bord coloré */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.fade-out {
+  opacity: 0; /* Disparition progressive */
+  transition: opacity 0.5s ease-out;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

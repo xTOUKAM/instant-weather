@@ -14,6 +14,11 @@ const checkLongitude = document.getElementById('checkLongitude');
 const checkAltitude = document.getElementById('checkAltitude');
 const checkWind = document.getElementById('checkWind');
 const checkDirection = document.getElementById('checkDiection');
+const checkboxContainer = document.getElementById('checkboxContainer');
+
+// Masquer le bouton et la liste déroulante des jours par défaut
+getWeatherButton.classList.add('hidden');
+daysSelect.classList.add('hidden');
 
 // Récupère la commune en fonction du code postal
 async function getCommuneByCP(postalCode) {
@@ -26,14 +31,13 @@ async function getCommuneByCP(postalCode) {
     }
 }
 
-// Affiche la liste des communes
+// Affiche la liste des communes avec un délai pour l'animation
 function displayCommunes(data) {
     communeSelect.innerHTML = "";
     const fragment = document.createDocumentFragment();
 
     if (data.length) {
         communeSelect.style.display = 'block';
-        getWeatherButton.style.display = 'block';
 
         data.forEach(commune => {
             const option = document.createElement('option');
@@ -46,8 +50,11 @@ function displayCommunes(data) {
     } else {
         postalCode.value = "";
         communeSelect.style.display = 'none';
-        getWeatherButton.style.display = 'none';
     }
+
+    // Réinitialiser la visibilité du bouton et de la liste des jours
+    getWeatherButton.classList.add('hidden');
+    daysSelect.classList.add('hidden');
 }
 
 // Récupère et affiche la météo
@@ -72,27 +79,28 @@ function getDayOfWeek(dateString) {
 function updateWeatherDisplay(data) {
     const { forecast } = data;
     const numDays = parseInt(daysSelect.value);
-    const locationName = communeSelect.options[communeSelect.selectedIndex].text;
-
     const fragment = document.createDocumentFragment();
 
     // Affichage du jour actuel (aujourd'hui)
     fragment.appendChild(createWeatherCard(forecast[0], 'Aujourd\'hui'));
 
-    // Affichage des jours suivants
+    // Affichage des jours suivants avec un délai pour chaque carte
     for (let i = 1; i < numDays; i++) {
         // Récupérer la date du jour en question
         const dayOfWeek = getDayOfWeek(forecast[i].datetime);
-        fragment.appendChild(createWeatherCard(forecast[i], dayOfWeek));
+        const weatherCard = createWeatherCard(forecast[i], dayOfWeek);
+        
+        // Appliquer un délai croissant à chaque carte
+        weatherCard.style.animationDelay = `${i * 0.3}s`; // Délai de 0.3 secondes entre chaque carte
+
+        fragment.appendChild(weatherCard);
     }
 
-    // Remplacer le contenu
+    // Remplacer le contenu et insérer les cartes
     forecastContainer.innerHTML = '';
     forecastContainer.appendChild(fragment);
 }
 
-
-// Crée une carte météo pour un jour donné
 // Crée une carte météo pour un jour donné
 function createWeatherCard(day, label) {
     // Créer une div principale pour chaque jour
@@ -196,4 +204,36 @@ getWeatherButton.addEventListener('click', async () => {
     } catch (err) {
         console.error(`Erreur lors de l'envoi de la requête à l'API : ${err}`);
     }
+});
+
+communeSelect.addEventListener('change', function() {
+    if (communeSelect.value !== "") {
+        getWeatherButton.style.display = 'block';
+        daysSelect.style.display = 'block';
+        
+        checkboxContainer.classList.add('visible');
+    } else {
+        getWeatherButton.style.display = 'none';
+        daysSelect.style.display = 'none';
+
+        checkboxContainer.classList.remove('visible');
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const spinner = document.getElementById("loadingSpinner");
+    
+    // Afficher le spinner
+    spinner.classList.remove("hidden");
+  
+    // Une fois que la page est complètement chargée
+    window.onload = function () {
+      // Ajoute une classe pour lancer l'effet de fondu
+      spinner.classList.add("fade-out");
+  
+      // Attendre que la transition de fondu soit terminée avant de supprimer l'élément du DOM
+      spinner.addEventListener("transitionend", function () {
+        spinner.remove(); // Retirer complètement le spinner du DOM
+      });
+    };
 });

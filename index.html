@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    <div id="loadingSpinner" class="loading-spinner hidden">
+        <div class="spinner"></div>
+    </div>
+      
     <div class="site-content">
         <div class="site-header">
             <div class="container">
@@ -32,7 +36,7 @@
                 <form action="#" class="find-location">
                     <input type="text" id="postalCode" placeholder="Merci d'entrer le code postal" required>
                     <!-- Ajouter la checkbox ici -->
-                    <div>
+                    <div id="checkboxContainer" class="checkboxes">
                         <label for="checkLatitude">
                             <input type="checkbox" id="checkLatitude"> Latitude
                         </label>
