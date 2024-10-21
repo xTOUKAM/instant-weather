@@ -1,5 +1,5 @@
 html {
-  background: #1e202b;
+
   color: #000;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -23,7 +23,7 @@ body {
   font-size: 14px;
   font-weight: 300;
   line-height: 1.5;
-  background: #1e202b;
+  background: #464c6d;
   margin-left: 0px;
   padding-left: 0px;
 }
@@ -240,8 +240,8 @@ form input[type="reset"] {
 #daysSelect,
 #getWeatherButton {
   font-size: 16px;
-  padding: 10px;
   margin: 5px;
+  padding-right: 50px;
   opacity: 0;
   animation: fadeInButton 0.5s ease forwards;
   animation-delay: 0.2s;
@@ -315,6 +315,7 @@ form input[type="reset"] {
   #communeSelect,
   #daysSelect,
   #getWeatherButton {
+    padding-right: 45px;
     width: 100%;
     font-size: 14px;
   }
@@ -547,5 +548,35 @@ label {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+
+.color-change-3x {
+	-webkit-animation: color-change-3x 4s linear NaNs infinite alternate both;
+	        animation: color-change-3x 4s linear NaNs infinite alternate both;
+}
+
+
+@-webkit-keyframes color-change-3x {
+  0% {
+    background: #191d62;
+  }
+  50% {
+    background: #656fe3;
+  }
+  100% {
+    background: #9161f1;
+  }
+}
+@keyframes color-change-3x {
+  0% {
+    background: #191d62;
+  }
+  50% {
+    background: #656fe3;
+  }
+  100% {
+    background: #9161f1;
   }
 }
