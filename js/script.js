@@ -36,6 +36,12 @@ function displayCommunes(data) {
     communeSelect.innerHTML = "";
     const fragment = document.createDocumentFragment();
 
+    // Valeur par défaut pour la liste déroulante des communes
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.textContent = "Sélectionnez une commune";
+    fragment.appendChild(defaultOption);
+
     if (data.length) {
         communeSelect.style.display = 'block';
 
