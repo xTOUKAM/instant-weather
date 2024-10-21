@@ -202,8 +202,15 @@ postalCode.addEventListener("input", async () => {
 });
 
 // Gestion de l'affichage de la météo
-getWeatherButton.addEventListener('click', async () => {
+getWeatherButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+
     const communeValue = communeSelect.value;
+    if (!communeValue) {
+        alert('Veuillez sélectionner une commune.');
+        return;
+    }
+    
     try {
         const data = await getWeather(communeValue);
         updateWeatherDisplay(data);
@@ -211,6 +218,7 @@ getWeatherButton.addEventListener('click', async () => {
         console.error(`Erreur lors de l'envoi de la requête à l'API : ${err}`);
     }
 });
+
 
 communeSelect.addEventListener('change', function() {
     if (communeSelect.value !== "") {
