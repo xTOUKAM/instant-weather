@@ -134,7 +134,7 @@ form input[type="reset"] {
 
 .site-header .branding .site-title {
   margin-bottom: 50px;
-  font-size: 30px;
+  font-size: 55px;
   color: white;
 }
 
@@ -552,31 +552,3 @@ label {
 }
 
 
-.color-change-3x {
-	-webkit-animation: color-change-3x 4s linear NaNs infinite alternate both;
-	        animation: color-change-3x 4s linear NaNs infinite alternate both;
-}
-
-
-@-webkit-keyframes color-change-3x {
-  0% {
-    background: #191d62;
-  }
-  50% {
-    background: #656fe3;
-  }
-  100% {
-    background: #9161f1;
-  }
-}
-@keyframes color-change-3x {
-  0% {
-    background: #191d62;
-  }
-  50% {
-    background: #656fe3;
-  }
-  100% {
-    background: #9161f1;
-  }
-}
