@@ -23,7 +23,7 @@ Pour exécuter ce projet en local :
 1. Clonez le dépôt :
 
    ```bash
-   git clone https://github.com/votre-nom-utilisateur/instant-weather.git
+   git clone https://github.com/xTOUKAM/instant-weather.git
 
 ## Accéder au site
 
